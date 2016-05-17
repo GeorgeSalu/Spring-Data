@@ -4,8 +4,10 @@ tmp/
 *.tmp
 *.bak
 *.swp
+*.class
 *~.nib
 local.properties
 .settings/
 .loadpath
 .recommenders
+*.target/
