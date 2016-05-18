@@ -1,5 +1,7 @@
 package br.com.devmedia.revjpa;
 
+import java.util.List;
+
 import br.com.devmedia.revjpa.dao.PersonDAO;
 import br.com.devmedia.revjpa.entity.Person;
 
@@ -11,7 +13,71 @@ public class App {
 	public static void main(String[] args) {
 
 		//insertPerson();
-		findPersonById();
+		//findPersonById();
+		//countPerson();
+		//findByLastName();
+		//findByAge();
+		//findByFullName();
+		//updatePerson();
+		deletePerson();
+		
+	}
+
+	private static void deletePerson() {
+
+		new PersonDAO().delete(3L);
+		
+	}
+
+	private static void updatePerson() {
+
+		Person p1 = new PersonDAO().findById(3L);
+		
+		System.out.println(p1.toString());
+		
+		p1.setLastName("de souza");
+		
+		new PersonDAO().update(p1);
+		
+		Person p2 = new PersonDAO().findById(3L);
+		
+		System.out.println(p2.toString());
+		
+	}
+
+	private static void findByFullName() {
+
+		Person person = new PersonDAO().findByFullName("Bruna", "Figueira");
+		
+		System.out.println(person.toString());	
+		
+	}
+
+	private static void findByAge() {
+		
+		List<Person> persons = new PersonDAO().findByAgeIsBetween(20, 40);
+		
+		for(Person person : persons){
+			System.out.println(person.toString());
+		}
+		
+	}
+
+	private static void findByLastName() {
+
+		List<Person> persons = new PersonDAO().findByLastName("da silva");
+		
+		for(Person person : persons){
+			System.out.println(person.toString());
+		}
+		
+	}
+
+	private static void countPerson() {
+		
+		long total = new PersonDAO().count();
+		
+		System.out.println("Total Person : "+total);
 		
 	}
 
