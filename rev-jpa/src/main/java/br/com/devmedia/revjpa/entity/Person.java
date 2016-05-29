@@ -2,13 +2,18 @@ package br.com.devmedia.revjpa.entity;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Index;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Cascade;
 
 @Entity
 @Table(name = "PERSONS", indexes = {
@@ -28,6 +33,10 @@ public class Person implements Serializable {
 
 	@Column(name = "AGE", nullable = false)
 	private Integer age;
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "DOCUMENT_ID")
+	private Document document;
 
 	public Long getId() {
 		return id;
@@ -59,6 +68,14 @@ public class Person implements Serializable {
 
 	public void setAge(Integer age) {
 		this.age = age;
+	}
+
+	public Document getDocument() {
+		return document;
+	}
+
+	public void setDocument(Document document) {
+		this.document = document;
 	}
 
 	@Override

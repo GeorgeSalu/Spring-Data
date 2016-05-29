@@ -24,8 +24,11 @@ public class Document implements Serializable {
 	@Column(name = "RG", unique = true)
 	private String rg;
 
-	public Document(Long id, String cpf, String rg) {
+	public Document() {
 		super();
+	}
+	
+	public Document(Long id, String cpf, String rg) {
 		this.id = id;
 		this.cpf = cpf;
 		this.rg = rg;
