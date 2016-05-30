@@ -2,7 +2,9 @@ package br.com.devmedia.revjpa;
 
 import java.util.List;
 
+import br.com.devmedia.revjpa.dao.DocumentDAO;
 import br.com.devmedia.revjpa.dao.PersonDAO;
+import br.com.devmedia.revjpa.entity.Document;
 import br.com.devmedia.revjpa.entity.Person;
 
 /**
@@ -19,7 +21,46 @@ public class App {
 		//findByAge();
 		//findByFullName();
 		//updatePerson();
-		deletePerson();
+		//deletePerson();
+		//insertDocument();
+		//updateDocument();
+		findPersonByCpf();
+	}
+
+	private static void findPersonByCpf() {
+
+		Person p = new PersonDAO().findByCpf("123.456.789-99");
+		
+		System.out.println(p.toString());
+		
+	}
+
+	private static void updateDocument() {
+
+		Document doc = new DocumentDAO().findById(1L);
+		
+		System.out.println(doc.toString());
+		
+		doc.setCpf("123.456.789-99");
+		
+		new DocumentDAO().update(doc);
+		
+		System.out.println(new DocumentDAO().findById(1L).toString());
+		
+	}
+
+	private static void insertDocument() {
+		
+		Person p1 = new Person();
+		p1.setFirstName("Aline");
+		p1.setLastName("De Souza");
+		p1.setAge(24);
+		p1.setDocument(new Document("123+456.789-99", "123456789"));
+		
+		new PersonDAO().save(p1);
+		
+		System.out.println(p1.toString());
+		
 		
 	}
 

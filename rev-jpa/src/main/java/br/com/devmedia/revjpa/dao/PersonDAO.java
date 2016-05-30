@@ -32,4 +32,12 @@ public class PersonDAO extends GenericDAO<Person>{
 		
 	}
 	
+	public Person findByCpf(String cpf){
+		
+		String jpql = "select p from Person p, Document d where d.cpf like ? "
+				+ "and p.document.id = d.id";
+		
+		return findOne(jpql, cpf);
+	}
+	
 }

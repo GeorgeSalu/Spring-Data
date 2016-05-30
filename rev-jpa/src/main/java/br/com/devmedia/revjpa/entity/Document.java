@@ -28,8 +28,7 @@ public class Document implements Serializable {
 		super();
 	}
 	
-	public Document(Long id, String cpf, String rg) {
-		this.id = id;
+	public Document(String cpf, String rg) {
 		this.cpf = cpf;
 		this.rg = rg;
 	}
