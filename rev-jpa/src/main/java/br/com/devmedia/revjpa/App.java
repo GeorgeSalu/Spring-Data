@@ -2,10 +2,15 @@ package br.com.devmedia.revjpa;
 
 import java.util.List;
 
+import org.hibernate.dialect.PointbaseDialect;
+
 import br.com.devmedia.revjpa.dao.DocumentDAO;
 import br.com.devmedia.revjpa.dao.PersonDAO;
+import br.com.devmedia.revjpa.dao.PhoneDAO;
 import br.com.devmedia.revjpa.entity.Document;
 import br.com.devmedia.revjpa.entity.Person;
+import br.com.devmedia.revjpa.entity.Phone;
+import br.com.devmedia.revjpa.entity.Phone.TypePhone;
 
 /**
  * Hello world!
@@ -24,7 +29,29 @@ public class App {
 		//deletePerson();
 		//insertDocument();
 		//updateDocument();
-		findPersonByCpf();
+		//findPersonByCpf();
+		insertPhone();
+	}
+
+	private static void insertPhone() {
+
+		Person person = new Person();
+		person.setFirstName("Gilson");
+		person.setLastName("Figueira");
+		person.setAge(28);
+		person.setDocument(new Document("145.256.365-98", "10000000000"));
+
+		Phone phone = new Phone(TypePhone.CELULAR, "999999999");
+		phone.setPerson(person);
+		
+		PhoneDAO dao = new PhoneDAO();
+		
+		dao.save(phone);
+		
+		phone = dao.findById(phone.getId());
+		
+		System.out.println(phone.toString());
+		
 	}
 
 	private static void findPersonByCpf() {
