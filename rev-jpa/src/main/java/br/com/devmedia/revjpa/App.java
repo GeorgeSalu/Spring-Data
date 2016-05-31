@@ -1,5 +1,6 @@
 package br.com.devmedia.revjpa;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.hibernate.dialect.PointbaseDialect;
@@ -30,7 +31,50 @@ public class App {
 		//insertDocument();
 		//updateDocument();
 		//findPersonByCpf();
-		insertPhone();
+		//insertPhone();
+		//insertPhoneByPerson();
+		updatePhone();
+		
+	}
+
+	private static void updatePhone() {
+
+		Person person = new PersonDAO().findById(3L);
+		
+		PhoneDAO dao = new PhoneDAO();
+		
+		Phone phone = dao.findById(2L);
+		
+		phone.setPerson(person);
+		
+		dao.update(phone);
+		
+		phone = dao.findById(phone.getId());
+		
+		System.out.println(phone.toString());
+		
+	}
+
+	private static void insertPhoneByPerson() {
+
+		Phone ph1 = new Phone(TypePhone.CELULAR,"399999999");
+		Phone ph2 = new Phone(TypePhone.COMERCIAL, "93333333333333");
+
+		Person person = new Person();
+		person.setFirstName("Fabricio");
+		person.setLastName("Figueira");
+		person.setAge(28);
+		person.setDocument(new Document("945.256.365-98", "11000000002"));
+
+		//ph1.setPerson(person);
+		//ph2.setPerson(person);
+		
+		//person.setPhones(Arrays.asList(ph1,ph2));
+		person.addPhone(ph1);
+		person.addPhone(ph2);
+		
+		new PersonDAO().save(person);
+		
 	}
 
 	private static void insertPhone() {

@@ -1,6 +1,7 @@
 package br.com.devmedia.revjpa.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -43,6 +44,14 @@ public class Person implements Serializable {
 
 	@OneToMany(mappedBy = "person",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	private List<Phone> phones;
+	
+	public void addPhone(Phone phone){
+		if(phones == null){
+			phones = new ArrayList<Phone>();
+		}
+		phone.setPerson(this);
+		phones.add(phone);
+	}
 	
 	public Long getId() {
 		return id;
