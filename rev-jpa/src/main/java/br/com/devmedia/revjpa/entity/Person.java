@@ -13,6 +13,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Index;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -42,23 +44,31 @@ public class Person implements Serializable {
 	@JoinColumn(name = "DOCUMENT_ID")
 	private Document document;
 
-	@OneToMany(mappedBy = "person",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "person", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Phone> phones;
-	
-	public void addPhone(Phone phone){
-		if(phones == null){
+
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinTable(
+			name = "PERSONS_ADDRESSES", 
+			joinColumns = @JoinColumn(name = "ID_PERSON") , 
+			inverseJoinColumns = @JoinColumn(name = "ID_ADDRESS")
+	)
+	private List<Address> addresses;
+
+	public void addPhone(Phone phone) {
+		if (phones == null) {
 			phones = new ArrayList<Phone>();
 		}
 		phone.setPerson(this);
 		phones.add(phone);
 	}
-	
-	public void delPhone(Phone phone){
-		if(phones != null){
+
+	public void delPhone(Phone phone) {
+		if (phones != null) {
 			phones.remove(phone);
 		}
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -105,6 +115,14 @@ public class Person implements Serializable {
 
 	public void setPhones(List<Phone> phones) {
 		this.phones = phones;
+	}
+
+	public List<Address> getAddresses() {
+		return addresses;
+	}
+
+	public void setAddresses(List<Address> addresses) {
+		this.addresses = addresses;
 	}
 
 	@Override
