@@ -34,7 +34,7 @@ public class Phone implements Serializable {
 	@Column(name = "NUMBER", nullable = false)
 	private String number;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinColumn(name = "PERSON_ID")
 	private Person person;
 

@@ -33,8 +33,51 @@ public class App {
 		//findPersonByCpf();
 		//insertPhone();
 		//insertPhoneByPerson();
-		updatePhone();
+		//updatePhone();
+		//updatePhoneByPerson();
+		deleteOnCascade();
 		
+	}
+
+	private static void deleteOnCascade() {
+
+		//new PersonDAO().delete(3L);
+		PhoneDAO dao = new PhoneDAO();
+		
+		Phone phone = dao.findById(4L);
+		
+		System.out.println(phone.toString());
+
+		phone.getPerson().delPhone(phone);
+		
+		dao.delete(phone);
+		
+	}
+
+	private static void updatePhoneByPerson() {
+
+		Person person = new PersonDAO().findById(5L);
+		
+		for(Phone phone : person.getPhones()){
+			
+			System.out.println("1 - "+phone.toString());
+			
+			if(TypePhone.COMERCIAL == phone.getType()){
+				
+				phone.setType(TypePhone.RESIDENCIAL);
+				
+			}
+			
+		}
+		
+		
+		new PersonDAO().update(person);
+		
+		for(Phone phone : person.getPhones()){
+			
+			System.out.println(" 2 - "+phone.toString());
+			
+		}
 	}
 
 	private static void updatePhone() {

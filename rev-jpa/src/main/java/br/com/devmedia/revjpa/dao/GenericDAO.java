@@ -48,6 +48,15 @@ public abstract class GenericDAO<T extends Serializable> {
 		manager.getTransaction().commit();
 		manager.close();
 	}
+
+	public void delete(T entity){
+		EntityManager manager = getEntityManager();
+		manager.getTransaction().begin();
+		manager.remove(manager.merge(entity));
+		manager.getTransaction().commit();
+		manager.close();
+	}
+
 	
 	public T findById(Long id){
 		EntityManager manager = getEntityManager();
