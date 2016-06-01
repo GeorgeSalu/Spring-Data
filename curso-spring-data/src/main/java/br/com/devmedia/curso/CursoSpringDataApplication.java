@@ -15,7 +15,7 @@ import br.com.devmedia.curso.repository.PersonRepository;
 import br.com.devmedia.curso.repository.PhoneRepository;
 
 @SpringBootApplication
-@ImportResource(value="spring-data.xml")
+//@ImportResource(value="spring-data.xml")
 public class CursoSpringDataApplication implements CommandLineRunner{
 
 	@Autowired
