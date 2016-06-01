@@ -5,9 +5,12 @@ import java.util.List;
 
 import org.hibernate.dialect.PointbaseDialect;
 
+import br.com.devmedia.revjpa.dao.AddressDAO;
 import br.com.devmedia.revjpa.dao.DocumentDAO;
 import br.com.devmedia.revjpa.dao.PersonDAO;
 import br.com.devmedia.revjpa.dao.PhoneDAO;
+import br.com.devmedia.revjpa.entity.Address;
+import br.com.devmedia.revjpa.entity.Address.TypeAddress;
 import br.com.devmedia.revjpa.entity.Document;
 import br.com.devmedia.revjpa.entity.Person;
 import br.com.devmedia.revjpa.entity.Phone;
@@ -35,8 +38,64 @@ public class App {
 		//insertPhoneByPerson();
 		//updatePhone();
 		//updatePhoneByPerson();
-		deleteOnCascade();
+		//deleteOnCascade();
+		//insertAddressByPerson();
+		//insertPersonByAddress();
+		findByCity();
 		
+	}
+
+	private static void findByCity() {
+
+		List<Address> addresses = new AddressDAO().findByCity("Rio de Janeiro");
+
+		for(Address address : addresses){
+			System.out.println(address.toString());
+		}
+		
+	}
+
+	private static void insertPersonByAddress() {
+
+		Person person = new PersonDAO().findById(7L);
+		
+		Address ad1 = new Address();
+		ad1.setCity("Porto Alegre");
+		ad1.setStreet("Av. Beira Rio, 102");
+		ad1.setType(TypeAddress.RESIDENCIAL);
+		ad1.setPersons(Arrays.asList(person));
+		
+		AddressDAO dao = new AddressDAO();
+		dao.save(ad1);
+		
+		
+		System.out.println(dao.findById(ad1.getId()));
+	}
+
+	private static void insertAddressByPerson() {
+
+		Address ad1 = new Address();
+		ad1.setCity("Rio de Janeiro");
+		ad1.setStreet("Av. Copacabana, 3");
+		ad1.setType(TypeAddress.RESIDENCIAL);
+
+		Address ad2 = new Address();
+		ad2.setCity("Rio de Janeiro");
+		ad2.setStreet("Av. Ipanema, 2");
+		ad2.setType(TypeAddress.COMERCIAL);
+		
+		Person person = new Person();
+		person.setFirstName("Aline");
+		person.setLastName("Gomes");
+		person.setAge(29);
+		person.setDocument(new Document("780000987", "23444444"));
+		person.addPhone(new Phone(TypePhone.RESIDENCIAL, "2100122222"));
+		person.addPhone(new Phone(TypePhone.COMERCIAL, "23120022"));
+		person.setAddresses(Arrays.asList(ad1,ad2));
+		
+		new PersonDAO().save(person);
+		
+		System.out.println(new PersonDAO().findById(person.getId()));
 	}
 
 	private static void deleteOnCascade() {
