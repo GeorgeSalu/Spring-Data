@@ -56,7 +56,32 @@ public class CursoSpringDataApplication implements CommandLineRunner{
 		//testExists();
 		//testPagination();
 		//testByAge();
-		testByFirstNameLike();
+		//testByFirstNameLike();
+		//testbyAndOr();
+		//testByBetween();
+		testByLastNameAndBetween();
+		
+	}
+
+	private void testByLastNameAndBetween() {
+
+		List<Person> findByLastNameAndAgeBetween = personRepository.findByLastNameAndAgeBetween("Figueira", 25, 35);
+		findByLastNameAndAgeBetween.forEach(System.out::println);
+	}
+
+	private void testByBetween() {
+
+		List<Person> findByAgeBetween = personRepository.findByAgeBetween(24, 29);
+		findByAgeBetween.forEach(System.out::println);
+	}
+
+	private void testbyAndOr() {
+
+		Person findByFirstNameAndLastName = personRepository.findByFirstNameAndLastName("Aline", "Gomes");
+		System.out.println(findByFirstNameAndLastName.toString());
+		
+		List<Person> findByAgeOrFirstName = personRepository.findByAgeOrFirstName(29, "Bruna");
+		findByAgeOrFirstName.forEach(System.out::println);
 		
 	}
 
