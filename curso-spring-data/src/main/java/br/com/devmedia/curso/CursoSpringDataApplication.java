@@ -62,8 +62,32 @@ public class CursoSpringDataApplication implements CommandLineRunner{
 		//testByLastNameAndBetween();
 		//testByGreaterAndLess();
 		//testByGreaterAndLessEquals();
-		testByFirstNameGreaterThan();
+		//testByFirstNameGreaterThan();
+		//testByStartAndEnd();
+		//testByContaining();
+		testByAddressStratingAndEnding();
 		
+	}
+
+	private void testByAddressStratingAndEnding() {
+
+		List<Address> findByCityStartingWithOrStreetEndingWith = addressRepository.findByCityStartingWithOrStreetEndingWith("Rio", "102");
+		findByCityStartingWithOrStreetEndingWith.forEach(System.out::println);
+	}
+
+	private void testByContaining() {
+
+		List<Address> findByStreetContainig = addressRepository.findByStreetContaining("Ipanema");
+		findByStreetContainig.forEach(System.out::println);
+	}
+
+	private void testByStartAndEnd() {
+
+		List<Address> findByCityStartingWith = addressRepository.findByCityStartingWith("Rio");
+		findByCityStartingWith.forEach(System.out::println);
+		
+		List<Address> findByStreetEndingWith = addressRepository.findByStreetEndingWith("1002");
+		findByStreetEndingWith.forEach(System.out::println);
 	}
 
 	private void testByFirstNameGreaterThan() {
