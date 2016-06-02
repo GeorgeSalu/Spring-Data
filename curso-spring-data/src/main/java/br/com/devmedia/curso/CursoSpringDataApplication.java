@@ -43,7 +43,73 @@ public class CursoSpringDataApplication implements CommandLineRunner{
 		//testConfiguration();
 		//testSave();
 		//testUpdate();
-		testDelete();
+		//testDelete();
+		//testeSavePersons();
+		testDeletePersons();
+		
+	}
+
+	private void testDeletePersons() {
+
+		Person p1 = personRepository.findOne(9L);
+		Person p2 = personRepository.findOne(10L);
+		Person p3 = personRepository.findOne(11L);
+		
+		personRepository.delete(Arrays.asList(p1,p2,p3));
+		
+		System.out.println("------------------------------------------------");
+		
+		Person p4 = personRepository.findOne(12L);
+		Person p5 = personRepository.findOne(13L);
+		Person p6 = personRepository.findOne(14L);
+		
+		personRepository.deleteInBatch(Arrays.asList(p4,p5,p6));
+		
+	}
+
+	private void testeSavePersons() {
+
+		Person p1 = new Person();
+		p1.setFirstName("Alisson");
+		p1.setLastName("Souza");
+		p1.setAge(29);
+		p1.setDocument(new Document("1299999988", "8887665555"));
+		
+		Person p2 = new Person();
+		p2.setFirstName("Maria");
+		p2.setLastName("Souza");
+		p2.setAge(19);
+		p2.setDocument(new Document("299999988", "887665555"));
+
+		Person p3 = new Person();
+		p3.setFirstName("Amanda");
+		p3.setLastName("Souza");
+		p3.setAge(30);
+		p3.setDocument(new Document("1009999988", "8800665555"));
+		
+		Person p4 = new Person();
+		p4.setFirstName("claudemir");
+		p4.setLastName("Souza");
+		p4.setAge(26);
+		p4.setDocument(new Document("129999998898", "888766512555"));
+		
+		Person p5 = new Person();
+		p5.setFirstName("denis");
+		p5.setLastName("Souza");
+		p5.setAge(23);
+		p5.setDocument(new Document("1298889988", "885555"));
+		
+		
+		Person p6 = new Person();
+		p6.setFirstName("George");
+		p6.setLastName("Souza");
+		p6.setAge(20);
+		p6.setDocument(new Document("1200009988", "88800065555"));
+		
+		
+		List<Person> save = personRepository.save(Arrays.asList(p1,p2,p3,p4,p5,p6));
+		
+		save.forEach(System.out::println);
 		
 	}
 
