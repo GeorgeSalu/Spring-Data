@@ -8,6 +8,21 @@ import br.com.devmedia.curso.entity.Person;
 
 public interface PersonRepository extends JpaRepository<Person, Long> {
 
+	//busca por firstName maior que o valor informado
+	List<Person> findByFirstNameGreaterThan(String firstName);
+	
+	// busca por age menor que e igual ao paramnetro
+	List<Person> findByAgeLessThanEqual(Integer age);
+	
+	//busca por age maior que e igual ao paramentro
+	List<Person> findByAgeGreaterThanEqual(Integer age);
+	
+	//busca por age menor que o paramentro
+	List<Person> findByAgeLessThan(Integer age);
+	
+	// busca por age maior queo paramentro
+	List<Person> findByAgeGreaterThan(Integer age);
+	
 	//busca por lastName and Age between
 	List<Person> findByLastNameAndAgeBetween(String lastName,int min,int max);
 	

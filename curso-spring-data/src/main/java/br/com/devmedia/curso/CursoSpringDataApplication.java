@@ -59,7 +59,39 @@ public class CursoSpringDataApplication implements CommandLineRunner{
 		//testByFirstNameLike();
 		//testbyAndOr();
 		//testByBetween();
-		testByLastNameAndBetween();
+		//testByLastNameAndBetween();
+		//testByGreaterAndLess();
+		//testByGreaterAndLessEquals();
+		testByFirstNameGreaterThan();
+		
+	}
+
+	private void testByFirstNameGreaterThan() {
+
+		List<Person> findByFirstNameGreaterThan = personRepository.findByFirstNameGreaterThan("Bruna");
+		findByFirstNameGreaterThan.forEach(System.out::println);
+	}
+
+	private void testByGreaterAndLessEquals() {
+
+		List<Person> findByAgeGreaterThan = personRepository.findByAgeGreaterThan(28);
+		findByAgeGreaterThan.forEach(System.out::println);
+		
+		System.out.println("-----------------------------------------");
+		
+		List<Person> findByAgeLessThanEqual = personRepository.findByAgeLessThanEqual(28);
+		findByAgeLessThanEqual.forEach(System.out::println);
+	}
+
+	private void testByGreaterAndLess() {
+
+		List<Person> p1 = personRepository.findByAgeGreaterThan(28);
+		p1.forEach(System.out::println);
+		
+		System.out.println("----------------------------------------------");
+		
+		List<Person> p2 = personRepository.findByAgeLessThan(28);
+		p2.forEach(System.out::println);
 		
 	}
 
