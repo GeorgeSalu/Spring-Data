@@ -8,6 +8,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ImportResource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.domain.Sort.Order;
 
 import br.com.devmedia.curso.entity.Address;
 import br.com.devmedia.curso.entity.Document;
@@ -45,7 +50,56 @@ public class CursoSpringDataApplication implements CommandLineRunner{
 		//testUpdate();
 		//testDelete();
 		//testeSavePersons();
-		testDeletePersons();
+		//testDeletePersons();
+		//testFindAndSort();
+		//testFindByIds();
+		//testExists();
+		testPagination();
+		
+	}
+
+	private void testPagination() {
+
+		Page<Person> pages = personRepository.findAll(new PageRequest(0,3));
+		pages.getContent().forEach(System.out::println);
+
+		pages = personRepository.findAll(new PageRequest(1,3));
+		pages.getContent().forEach(System.out::println);
+		
+		
+	}
+
+	private void testExists() {
+
+		boolean p1 = personRepository.exists(5L);
+		
+		System.out.println(" p1 is "+p1);
+		
+		boolean p2 = personRepository.exists(50L);
+		
+		System.out.println(" p2 is "+p2);
+		
+	}
+
+	private void testFindByIds() {
+
+		List<Person> persons = personRepository.findAll(Arrays.asList(1L,2L,4L));
+		
+		persons.forEach(System.out::println);
+		
+	}
+
+	private void testFindAndSort() {
+
+		Order orderAsc = new Order(Direction.ASC,"lastName");
+		
+		Order orderDesc = new Order(Direction.DESC,"firstName");
+		
+		Sort sort = new Sort(orderAsc,orderDesc);
+		
+		List<Person> persons = personRepository.findAll(sort);
+		
+		persons.forEach(System.out::println);
 		
 	}
 
