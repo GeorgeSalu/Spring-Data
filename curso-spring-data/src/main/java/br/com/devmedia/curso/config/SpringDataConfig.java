@@ -44,7 +44,7 @@ public class SpringDataConfig {
 	@Bean
 	public EntityManagerFactory entityManagerFactory() {
 		HibernateJpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
-		adapter.setShowSql(true);
+		adapter.setShowSql(false);
 		adapter.setGenerateDdl(true);
 		
 		LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();

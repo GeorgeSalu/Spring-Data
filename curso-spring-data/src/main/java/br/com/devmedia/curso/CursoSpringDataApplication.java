@@ -54,8 +54,31 @@ public class CursoSpringDataApplication implements CommandLineRunner{
 		//testFindAndSort();
 		//testFindByIds();
 		//testExists();
-		testPagination();
+		//testPagination();
+		//testByAge();
+		testByFirstNameLike();
 		
+	}
+
+	private void testByFirstNameLike() {
+
+		List<Person> findByFirstNameLike = personRepository.findByFirstNameLike("Aline");
+		findByFirstNameLike.forEach(System.out::println);
+		
+		System.out.println("----------------------------------------------------------");
+		
+		List<Person> findByFirstNameNotLike = personRepository.findByFirstNameNotLike("Aline");
+		findByFirstNameNotLike.forEach(System.out::println);
+	}
+
+	private void testByAge() {
+
+		List<Person> findByAge = personRepository.findByAge(29);
+		findByAge.forEach(System.out::println);
+		
+		
+		List<Person> findByAgeNot = personRepository.findByAgeNot(29);
+		findByAgeNot.forEach(System.out::println);
 	}
 
 	private void testPagination() {
