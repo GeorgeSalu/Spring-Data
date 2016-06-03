@@ -8,6 +8,9 @@ import br.com.devmedia.curso.entity.Address;
 
 public interface AddressRepository extends JpaRepository<Address, Long>{
 
+	// busca por city e ordena por type de forma descendente
+	List<Address> findByCityOrderByTypeDesc(String city);
+	
 	//busca por city ou street conforme a igualdade da sequencia de caracteres
 	List<Address> findByCityStartingWithOrStreetEndingWith(String city,String street);
 	

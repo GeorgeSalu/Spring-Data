@@ -8,6 +8,15 @@ import br.com.devmedia.curso.entity.Person;
 
 public interface PersonRepository extends JpaRepository<Person, Long> {
 
+	// busca por firstName ignorando lestras maiusculas e minusculas
+	List<Person> findByFirstNameIgnoreCase(String firstName);
+	
+	// busca por age baseado em uma lista de paramentros que sera negada
+	List<Person> findByAgeNotIn(Integer... ages);
+	
+	// busca por age baseado em uma lista de paramentros
+	List<Person> findByAgeIn(Integer... ages);
+	
 	//busca por firstName maior que o valor informado
 	List<Person> findByFirstNameGreaterThan(String firstName);
 	
