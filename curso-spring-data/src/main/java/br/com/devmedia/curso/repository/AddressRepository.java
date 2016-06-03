@@ -11,6 +11,12 @@ public interface AddressRepository extends JpaRepository<Address, Long>{
 
 	@Query(
 			nativeQuery=true,
+			value="select funcConcatAddress(?1)"
+	)
+	String functionNativeQueryConcatenaEndereco(Long id);
+	
+	@Query(
+			nativeQuery=true,
 			value="select * from addresses where city like ?1 and street like ?2"
 	)
 	Address buscaPorCidadeRua(String city,String street);
