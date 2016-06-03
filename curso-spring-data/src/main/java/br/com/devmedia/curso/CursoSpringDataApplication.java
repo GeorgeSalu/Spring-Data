@@ -78,8 +78,25 @@ public class CursoSpringDataApplication implements CommandLineRunner{
 		//findPersonByCPFEndsWith();
 		//findPersonByAges();
 		//findPersonByNames();
-		findDocumentByCPFStarting();
+		//findDocumentByCPFStarting();
+		//findAddressPorCidade();
+		findAddressPorEndereco();
+	}
+
+	private void findAddressPorEndereco() {
+
+		//Address buscaPorEndereco = addressRepository.buscaPorEndereco("Rio de Jneiro", "Av. Copacabana, 32");
 		
+		Address buscaPorCidadeRua = addressRepository.buscaPorCidadeRua("Rio de Jneiro", "Av. Copacabana, 32");
+		
+		System.out.println(buscaPorCidadeRua.toString());
+		
+	}
+
+	private void findAddressPorCidade() {
+
+		List<Address> buscaPorCidade = addressRepository.buscaPorCidade("Porto Alegre");
+		buscaPorCidade.forEach(System.out::println);
 	}
 
 	private void findDocumentByCPFStarting() {

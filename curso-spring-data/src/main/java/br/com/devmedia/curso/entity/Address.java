@@ -14,10 +14,24 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedNativeQuery;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "ADDRESSES")
+@NamedQuery(
+		name = "Address.buscaPorCidade",
+		query = "select a from Address a where a.city like ?1"
+)
+@NamedNativeQueries(
+		@NamedNativeQuery(
+				name = "Address.buscaPorEndereco",
+				query = "select * from Addresses where city like ?1 and street like ?2",
+				resultClass = Address.class
+		)
+)
 public class Address implements Serializable {
 
 	public enum TypeAddress {
