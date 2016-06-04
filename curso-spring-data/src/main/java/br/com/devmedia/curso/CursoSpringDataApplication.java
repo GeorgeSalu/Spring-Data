@@ -81,8 +81,19 @@ public class CursoSpringDataApplication implements CommandLineRunner{
 		//findDocumentByCPFStarting();
 		//findAddressPorCidade();
 		//findAddressPorEndereco();
-		testFuncAddress();
+		//testFuncAddress();
+		testProcedureCPF();
 		
+	}
+
+	private void testProcedureCPF() {
+
+		String replaceCPF = documentRepository.replaceCPF(2L);
+		System.out.println(replaceCPF.toString());
+		
+		String procedureReplaceCPF = documentRepository.procedureReplaceCPF(5L);
+		System.out.println(procedureReplaceCPF.toString());
+
 	}
 
 	private void testFuncAddress() {
