@@ -18,12 +18,14 @@ import br.com.devmedia.curso.entity.Address;
 import br.com.devmedia.curso.entity.Document;
 import br.com.devmedia.curso.entity.Person;
 import br.com.devmedia.curso.entity.Phone;
+import br.com.devmedia.curso.entity.User;
 import br.com.devmedia.curso.entity.Address.TypeAddress;
 import br.com.devmedia.curso.entity.Phone.TypePhone;
 import br.com.devmedia.curso.repository.AddressRepository;
 import br.com.devmedia.curso.repository.DocumentRepository;
 import br.com.devmedia.curso.repository.PersonRepository;
 import br.com.devmedia.curso.repository.PhoneRepository;
+import br.com.devmedia.curso.repository.UserRepository;
 
 @SpringBootApplication
 //@ImportResource(value="spring-data.xml")
@@ -37,6 +39,8 @@ public class CursoSpringDataApplication implements CommandLineRunner{
 	private DocumentRepository documentRepository;
 	@Autowired
 	private PhoneRepository phoneRepository;
+	@Autowired
+	private UserRepository userRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(CursoSpringDataApplication.class, args);
@@ -87,7 +91,25 @@ public class CursoSpringDataApplication implements CommandLineRunner{
 		//deletePhone();
 		//findFirstLastName();
 		//findTopAge();
-		findFirst3AndTop3();
+		//findFirst3AndTop3();
+		
+		testUser();
+		
+	}
+
+	private void testUser() {
+
+		User user = new User();
+		user.setUsername("marcio@gmail.com");
+		user.setPassword("sssssss");
+		
+		if(user.isNew()){
+			userRepository.save(user);
+		}
+		
+		User user2 = userRepository.findOne(user.getId());
+		
+		System.out.println(user2.toString());
 		
 	}
 
