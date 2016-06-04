@@ -82,7 +82,27 @@ public class CursoSpringDataApplication implements CommandLineRunner{
 		//findAddressPorCidade();
 		//findAddressPorEndereco();
 		//testFuncAddress();
-		testProcedureCPF();
+		//testProcedureCPF();
+		//updatePhones();
+		deletePhone();
+		
+	}
+
+	private void deletePhone() {
+
+		int result = phoneRepository.deleteByPhoneNumber("3333339999999");
+		
+		System.out.println("Result -> "+result);
+		
+	}
+
+	private void updatePhones() {
+
+		//int setPhoneNumber = phoneRepository.setPhoneNumber("3333339999999", 1L);
+		
+		int setPhoneNumber = phoneRepository.setPhoneNumber(TypePhone.RESIDENCIAL, 1L);
+		
+		System.out.println("Result = "+setPhoneNumber);
 		
 	}
 
