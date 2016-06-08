@@ -7,17 +7,17 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 @Entity
 @Table(name = "avatares")
 public class Avatar extends AbstractPersistable<Long> {
-
+	
 	@Column(nullable = false)
 	private String titulo;
-
+	
 	@Column(nullable = false)
 	private String tipo;
-
+	
 	@Lob
 	@Column(nullable = false)
 	private byte[] avatar;
-
+	
 	@Override
 	public void setId(Long id) {
 		super.setId(id);
@@ -46,5 +46,4 @@ public class Avatar extends AbstractPersistable<Long> {
 	public void setAvatar(byte[] avatar) {
 		this.avatar = avatar;
 	}
-
 }

@@ -14,16 +14,16 @@ import br.com.devmedia.blog.entity.Usuario;
 import br.com.devmedia.blog.repository.UsuarioRepository;
 
 @Service
-@Transactional(readOnly=true,propagation=Propagation.REQUIRED)
+@Transactional(readOnly = true, propagation = Propagation.REQUIRED)
 public class UsuarioService {
 
 	@Autowired
 	private UsuarioRepository repository;
 	
-	@Transactional(readOnly=false)
-	public void save(Usuario usuario){
+	@Transactional(readOnly = false)
+	public void save(Usuario usuario) {
 		
-		if(usuario.getDataCadastro() == null){
+		if (usuario.getDataCadastro() == null) {
 			usuario.setDataCadastro(LocalDate.now());
 		}
 		
@@ -32,25 +32,29 @@ public class UsuarioService {
 		repository.save(usuario);
 	}
 	
-	@Transactional(readOnly=false)
-	public void delete(Long id){
+	@Transactional(readOnly = false)
+	public void delete(Long id) {
+		
 		repository.delete(id);
 	}
 	
-	public Usuario findById(Long id){
+	public Usuario findById(Long id) {
+		
 		return repository.findOne(id);
 	}
 	
-	public Usuario findByAvatar(Avatar avatar){
+	public Usuario findByAvatar(Avatar avatar) {
+		
 		return repository.findByAvatar(avatar);
 	}
 	
-	public Usuario findByEmail(String email){
+	public Usuario findByEmail(String email) {
+		
 		return repository.findByEmail(email);
 	}
 	
-	public List<Usuario> findAll(){
+	public List<Usuario> findAll() {
+		
 		return repository.findAll();
 	}
-	
 }

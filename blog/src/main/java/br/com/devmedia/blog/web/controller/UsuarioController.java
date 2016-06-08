@@ -32,36 +32,38 @@ public class UsuarioController {
 	private AvatarService avatarService;
 	
 	@InitBinder
-	public void initBinder(WebDataBinder binder){
+	public void initBinder(WebDataBinder binder) {
+		
 		binder.registerCustomEditor(Perfil.class, new PerfilEditorSupport());
 	}
 	
-	@RequestMapping(value="/list",method=RequestMethod.GET)
-	public ModelAndView listUsuarios(ModelMap model){
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public ModelAndView listUsuarios(ModelMap model) {
 		
 		List<Usuario> usuarios = usuarioService.findAll();
 		
 		model.addAttribute("usuarios", usuarios);
 		
-		return new ModelAndView("usuario/list",model);
+		return new ModelAndView("usuario/list", model);
 	}
 	
-	@RequestMapping(value="/perfil/{id}",method=RequestMethod.GET)
-	public ModelAndView perfil(@PathVariable("id") Long id){
+	@RequestMapping(value = "/perfil/{id}", method = RequestMethod.GET)
+	public ModelAndView perfil(@PathVariable("id") Long id) {
 		
 		ModelAndView view = new ModelAndView();
 		
 		Usuario usuario = usuarioService.findById(id);
 		
 		view.addObject("usuario", usuario);
+		
 		view.setViewName("usuario/perfil");
 		
 		return view;
 	}
 	
-	@RequestMapping(value="/save",method=RequestMethod.POST)
+	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public String save(@ModelAttribute("usuario") Usuario usuario,
-						@RequestParam(value = "file",required = false) MultipartFile file){
+					   @RequestParam(value = "file", required = false) MultipartFile file) {
 		
 		Avatar avatar = avatarService.getAvatarByUpload(file);
 		
@@ -69,12 +71,11 @@ public class UsuarioController {
 		
 		usuarioService.save(usuario);
 		
-		return "redirect:/usuario/perfil/"+usuario.getId();
+		return "redirect:/usuario/perfil/" + usuario.getId();
 	}
 	
-	@RequestMapping(value="/add",method=RequestMethod.GET)
-	public ModelAndView showForm(@ModelAttribute("usuario") Usuario usuario){
+	@RequestMapping(value = "/add", method = RequestMethod.GET)
+	public ModelAndView showForm(@ModelAttribute("usuario") Usuario usuario) {
 		return new ModelAndView("usuario/cadastro");
 	}
-	
 }
