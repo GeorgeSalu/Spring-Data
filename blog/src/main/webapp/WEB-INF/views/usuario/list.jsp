@@ -7,6 +7,7 @@
 <link type="text/css" rel="stylesheet" href="<c:url value="/css/style.css" />">
 </head>
 <body>
+	<c:import url="../menu.jsp"/>
 	<fieldset>
 		<legend>Lista de Usuarios</legend>
 		<table class="table">
@@ -19,6 +20,9 @@
 			</tr>
 			<c:forEach var="usuario" items="${usuarios }" varStatus="i">
 			<tr bgcolor='${i.count % 2 != 0 ? '#f1f1f1' : 'white' }'>
+				<td>
+					<img alt="" src="<c:url value="/avatar/load/${usuario.avatar.id }" />" style="width: 25px;height: 25;">
+				</td>
 				<td>${usuario.nome}</td>
 				<td>${usuario.email}</td>
 				<td>${usuario.dataCadastro}</td>
