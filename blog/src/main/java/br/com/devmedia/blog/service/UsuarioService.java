@@ -59,4 +59,11 @@ public class UsuarioService {
 		
 		return repository.findAll();
 	}
+
+	@Transactional(readOnly=false)
+	public void updateNomeAndEmail(Usuario usuario) {
+
+		repository.updateNomeAndEmail(usuario.getNome(),usuario.getEmail(),usuario.getId());
+		
+	}
 }
