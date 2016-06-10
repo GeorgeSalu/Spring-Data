@@ -7,6 +7,6 @@
 	</nav>
 	<nav>
 		<a href="<c:url value="/autor/add" />">Add Autor</a>
-		<%-- <a href="<c:url value="/autor/list" />">List Autor</a> --%>
+		<a href="<c:url value="/autor/list" />">List Autor</a>
 	</nav>
 </fieldset>

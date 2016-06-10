@@ -19,7 +19,8 @@
 				<th>Biografia</th>
 				<th>Ação</th>
 			</tr>
-			<tr>
+			<c:forEach var="autor" items="${autores }">
+			<tr bgcolor="${i.count % 2 != 0 ? '#f1f1f1' : 'white' }">
 				<td>${autor.nome}</td>
 				<td>${autor.usuario.email}</td>
 				<td>${autor.usuario.dataCadastro}</td>
@@ -27,9 +28,11 @@
 				<td>
 					<c:url var="update" value="/autor/update/${autor.id }" />
 					<a href="${update }" title="Editar">&#9445</a>
-					<a href="#" title="Excluir">&#9447</a>
+					<c:url var="delete" value="/autor/delete/${autor.id }" />
+					<a href="${delete }" title="Excluir">&#9447</a>
 				</td>
 			</tr>
+			</c:forEach>
 		</table>
 	</fieldset>
 </body>
