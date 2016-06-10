@@ -15,12 +15,12 @@
 			<legend> Cadastro de Autor</legend>
 			<div class="campo">
 				<form:label path="nome">Nome do Autor</form:label><br>
-				<form:textarea path="nome" cols="50" rows="10" required="true"/>
+				<form:input path="nome" type="text" required="true"/>
 			</div>
 			<br>
 			<div class="campo">
 				<form:label path="biografia">Biografia</form:label><br>
-				<form:input path="biografia" type="text" required="true"/>
+				<form:textarea path="biografia" cols="50" rows="10" required="true"/>
 			</div>
 			<br>
 			<div>
