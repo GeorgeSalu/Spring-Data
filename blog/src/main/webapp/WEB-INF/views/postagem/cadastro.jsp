@@ -22,8 +22,12 @@
 				<form:label path="texto">Texto do Post</form:label><br>
 				<form:textarea path="texto" rows="15" cols="80"/>
 			</div>
-			<br>
-			<br>
+			<div class="campo">
+				<form:label path="categorias">Selecione a(s) Categorias(s)</form:label>
+				<form:select path="categorias" multiple="true">
+					<form:options items="${categorias }" itemValue="id" itemLabel="descricao"/>
+				</form:select>
+			</div>
 			<div>
 				<input type="submit" value="Salvar">
 				<input type="reset" value="Limpar">

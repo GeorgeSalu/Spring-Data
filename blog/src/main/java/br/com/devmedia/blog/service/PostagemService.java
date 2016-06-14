@@ -53,6 +53,11 @@ public class PostagemService {
 		if(!persistente.getTexto().equals(postagem.getTexto())){
 			persistente.setTexto(postagem.getTexto());
 		}
+	
+		if(persistente.getCategorias() != postagem.getCategorias()){
+			persistente.setCategorias(postagem.getCategorias());
+		}
+	
 		
 		repository.save(persistente);
 	}
