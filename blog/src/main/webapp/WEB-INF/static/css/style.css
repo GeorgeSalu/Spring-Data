@@ -5,6 +5,14 @@
 	background: #f8f8f8;	
  }
  
+ .post-texto{
+ 	font-family: sans-serif;
+ 	font-size: 12px;
+ 	text-align: justify;
+ 	line-height: 1.5em;
+ 	color: gray;
+ }
+ 
  .table {
  	width: 640px;
  	text-align: center;
