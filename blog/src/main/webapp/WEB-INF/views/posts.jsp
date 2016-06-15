@@ -18,11 +18,18 @@
 				<div>
 					<h2>${p.titulo }</h2>
 					<p>
-						Autor : <a href="<c:url value="/autor/${p.autor.nome}" />"> ${p.autor.nome } </a> | Data : ${p.dataPostagem }
+						Autor : <a href="<c:url value="/autor/${p.autor.nome}" />"> ${p.autor.nome } </a> 
+						| 
+						Data : ${p.dataPostagem }
 					</p>
 				</div>
 				<div>
-					<h2>${p.texto }</h2>
+					<h2>
+						<!-- delimitando a quantidade de informação que vai pra tela -->
+						<c:forTokens var="resumo" items="${p.texto }" delims=" " begin="0" end="10">
+							${resumo }
+						</c:forTokens>...
+					</h2>
 				</div>
 				<div>
 					<p>
