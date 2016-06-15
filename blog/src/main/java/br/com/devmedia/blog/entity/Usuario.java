@@ -1,6 +1,7 @@
 package br.com.devmedia.blog.entity;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -9,26 +10,29 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 @Entity
 @Table(name = "usuarios")
 public class Usuario extends AbstractPersistable<Long> {
-	
+
 	@Column(nullable = false, unique = true)
 	private String nome;
-	
+
 	@Column(nullable = false, unique = true)
 	private String email;
-	
+
 	@Column(name = "senha_hash", nullable = false)
 	private String senha;
-	
+
 	@Column(name = "data_cadastro", nullable = false)
 	private LocalDate dataCadastro;
-	
+
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
 	private Perfil perfil;
 
-	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	@JoinColumn(name = "avatar_id")
-	private Avatar avatar;	
+	private Avatar avatar;
+
+	@OneToMany(mappedBy = "usuario")
+	private List<Comentario> comentarios;
 
 	@Override
 	public void setId(Long id) {
@@ -82,4 +86,13 @@ public class Usuario extends AbstractPersistable<Long> {
 	public void setAvatar(Avatar avatar) {
 		this.avatar = avatar;
 	}
+
+	public List<Comentario> getComentarios() {
+		return comentarios;
+	}
+
+	public void setComentarios(List<Comentario> comentarios) {
+		this.comentarios = comentarios;
+	}
+
 }
