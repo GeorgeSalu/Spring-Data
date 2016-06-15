@@ -5,6 +5,23 @@
 	background: #f8f8f8;	
  }
  
+ .post-autor{
+ 	border: 2px solid #eee;
+	position: relative;
+	padding: 10px 10px 10px 10px;
+	color: #d1d1d1;
+	font-family: sans-serif;
+	text-align: justify;
+ }
+ 
+ .post-avatar{
+ 	float: left;
+ 	margin: 0 10px 0 0;
+ 	width: 64px;
+ 	height: auto;
+ 	position: relative;
+ }
+ 
  .post-texto{
  	font-family: sans-serif;
  	font-size: 12px;

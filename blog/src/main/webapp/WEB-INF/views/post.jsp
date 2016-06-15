@@ -29,11 +29,17 @@
 				</div>
 				<div>
 					<p>
+						<span>Categoria:</span>
 						<c:forEach var="c" items="${postagem.categorias }">
 							<a href="<c:url value="/categoria/${c.permalink }" />" title="${c.descricao }"> 
 							| ${c.descricao} </a>
 						</c:forEach>
 					</p>
+				</div>
+				<div class="post-autor">
+					<img class="post-avatar" alt="" src="<c:url value="/avatar/load/${postagem.autor.usuario.avatar.id }" />">
+					<p><strong>${postagem.autor.nome }</strong></p>
+					<p>${postagem.autor.biografia }</p>
 				</div>
 			</div>
 	</fieldset>
