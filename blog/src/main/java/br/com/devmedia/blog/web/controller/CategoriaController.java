@@ -1,6 +1,7 @@
 package br.com.devmedia.blog.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -18,14 +19,29 @@ public class CategoriaController {
 
 	@Autowired
 	private CategoriaService service;
+
+	@RequestMapping(value="/page/{page}",method=RequestMethod.GET)
+	public ModelAndView pageCategorias(@PathVariable("page") Integer pagina){
+		
+		ModelAndView view = new ModelAndView("categoria/cadastro");
+		
+		Page<Categoria> page = service.findByPagination(pagina - 1, 5);
+		
+		view.addObject("page", page);
+		
+		return view;
+	}
 	
 	@RequestMapping(value="/update/{id}",method=RequestMethod.GET)
 	public ModelAndView preUpdate(@PathVariable("id") Long id,ModelMap model){
 		
 		Categoria categoria = service.findById(id);
 		
+		Page<Categoria> page = service.findByPagination(0, 5);
+		
 		model.addAttribute("categoria",categoria);
-		model.addAttribute("categorias", service.findAll());
+		//model.addAttribute("categorias", service.findAll());
+		model.addAttribute("page", page);
 		
 		return new ModelAndView("categoria/cadastro",model);
 	}
@@ -51,7 +67,10 @@ public class CategoriaController {
 		
 		ModelAndView view = new ModelAndView();
 		
-		view.addObject("categorias", service.findAll());
+		Page<Categoria> page = service.findByPagination(0, 5);
+		
+		//view.addObject("categorias", service.findAll());
+		view.addObject("page", page);
 		view.setViewName("categoria/cadastro");
 		
 		return view;

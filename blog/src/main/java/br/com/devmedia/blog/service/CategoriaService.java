@@ -3,6 +3,9 @@ package br.com.devmedia.blog.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.domain.Sort.Order;
@@ -20,6 +23,14 @@ public class CategoriaService {
 
 	@Autowired
 	private CategoriaRepository repository;
+	
+	public Page<Categoria> findByPagination(int page,int size) {
+	
+		Pageable pageable = new PageRequest(page, size);
+		
+		return repository.findAllByOrderByDescricaoAsc(pageable);
+	}
+	
 	
 	public List<Categoria> findAll() {
 		
