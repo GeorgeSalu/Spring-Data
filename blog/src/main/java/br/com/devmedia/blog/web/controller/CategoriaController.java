@@ -21,7 +21,8 @@ public class CategoriaController {
 	private CategoriaService service;
 
 	@RequestMapping(value="/page/{page}",method=RequestMethod.GET)
-	public ModelAndView pageCategorias(@PathVariable("page") Integer pagina){
+	public ModelAndView pageCategorias(@PathVariable("page") Integer pagina,
+										@ModelAttribute("categoria") Categoria categoria){
 		
 		ModelAndView view = new ModelAndView("categoria/cadastro");
 		
