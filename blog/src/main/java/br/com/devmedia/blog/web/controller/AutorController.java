@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +22,18 @@ public class AutorController {
 
 	@Autowired
 	private AutorService autorService;
+	
+	@RequestMapping(value="/page/{page}",method=RequestMethod.GET)
+	public ModelAndView pageAutores(@PathVariable("page")Integer pagina) {
+		
+		ModelAndView view = new ModelAndView("autor/perfil");
+		
+		Page<Autor> page = autorService.findByPagination(pagina - 1, 5);
+		
+		view.addObject("page", page);
+		
+		return view;
+	}
 	
 	@RequestMapping(value="/delete/{id}",method=RequestMethod.GET)
 	public String delete(@PathVariable("id") Long id){
@@ -52,8 +65,10 @@ public class AutorController {
 			Autor autor = autorService.findById(id.get());
 			view.addObject("autores",Arrays.asList(autor));
 		} else{
-			List<Autor> autores = autorService.findAll();
-			view.addObject("autores",autores);
+			//List<Autor> autores = autorService.findAll();
+			//view.addObject("autores",autores);
+			Page<Autor> page = autorService.findByPagination(0, 5);
+			view.addObject("page", page);
 		}
 		
 		return view;
