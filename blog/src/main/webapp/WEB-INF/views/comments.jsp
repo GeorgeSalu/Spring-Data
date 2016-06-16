@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<div>
+<div id="comentarios">
 	<c:url var="save" value="/comentario/save"/>
 	<form:form modelAttribute="comentario" action="${save }" method="post">
 		<input type="hidden" value="${postagem.permalink }" name="permalink">
@@ -15,8 +15,8 @@
 	</form:form>
 	<hr>
 	<c:forEach var="c" items="${postagem.comentarios }">
-		<div>
-			<img alt="" src="<c:url value="/avatar/load/${c.usuario.avatar.id }" />">
+		<div class="comentarios">
+			<img class="comentarios-avatar" src="<c:url value="/avatar/load/${c.usuario.avatar.id }" />">
 			<em>
 				${c.usuario.nome }
 				<fmt:parseDate value="${c.dataComentario }" var="date"  pattern="yyyy-MM-dd'T'HH:mm:ss"/>

@@ -21,6 +21,7 @@
 						Autor : <a href="<c:url value="/autor/${p.autor.nome}" />"> ${p.autor.nome } </a> 
 						| 
 						Data : ${p.dataPostagem }
+						| # ${fn:length(p.comentarios) }
 					</p>
 				</div>
 				<div>
