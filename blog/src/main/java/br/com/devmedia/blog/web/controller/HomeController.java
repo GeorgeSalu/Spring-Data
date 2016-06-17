@@ -3,6 +3,7 @@ package br.com.devmedia.blog.web.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -43,12 +44,27 @@ public class HomeController {
 		return new ModelAndView("posts",model);
 	}
 	
-	@RequestMapping(value="/categoria/{link}",method=RequestMethod.GET)
-	public ModelAndView postByCategoria(@PathVariable("link") String link,ModelMap model){
+	@RequestMapping(value="/categoria/{link}/page/{page}",method=RequestMethod.GET)
+	public ModelAndView postByCategoria(@PathVariable("page") Integer pagina,
+			@PathVariable("link") String link,ModelMap model){
 		
-		List<Postagem> postagens = postagemService.findByCategoria(link);
+		//List<Postagem> postagens = postagemService.findByCategoria(link);
 		
-		model.addAttribute("postagens", postagens);
+		//model.addAttribute("postagens", postagens);
+		Page<Postagem> page = postagemService.findByPaginationByCategoria(pagina-1, 5,link);
+		
+		model.addAttribute("page", page);
+		
+		
+		return new ModelAndView("posts",model);
+	}
+	
+	@RequestMapping(value="/page/{page}",method=RequestMethod.GET)
+	public ModelAndView pageHome(@PathVariable("pagina") Integer pagina,ModelMap model) {
+		
+		Page<Postagem> page = postagemService.findByPagination(pagina-1, 5);
+		
+		model.addAttribute("page", page);
 		
 		return new ModelAndView("posts",model);
 	}
@@ -56,9 +72,12 @@ public class HomeController {
 	@RequestMapping(value="/",method=RequestMethod.GET)
 	public ModelAndView home(ModelMap model){
 		
-		List<Postagem> postagens = postagemService.findAll();
+		//List<Postagem> postagens = postagemService.findAll();
 		
-		model.addAttribute("postagens", postagens);
+		//model.addAttribute("postagens", postagens);
+		Page<Postagem> page = postagemService.findByPagination(0, 5);
+		
+		model.addAttribute("page", page);
 		
 		return new ModelAndView("posts",model);
 	}
