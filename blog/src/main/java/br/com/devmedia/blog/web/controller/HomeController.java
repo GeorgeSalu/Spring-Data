@@ -35,7 +35,7 @@ public class HomeController {
 		return new ModelAndView("post",model);
 	}
 	
-	@RequestMapping(value="/search", method=RequestMethod.GET)
+	@RequestMapping(value="/search/texto/{texto}/page/{page}", method=RequestMethod.GET)
 	public ModelAndView search(@PathVariable("texto") String texto,
 								@PathVariable("page") Integer pagina,
 								ModelMap model){
