@@ -17,7 +17,7 @@
 				<div>
 					<h2>${p.titulo }</h2>
 					<p>
-						Autor : <a href="<c:url value="/autor/${postagem.autor.nome}" />"> ${postagem.autor.nome } </a> 
+						Autor : <a href="<c:url value="/autor/${postagem.autor.id}/page/1" />"> ${postagem.autor.nome } </a> 
 						| 
 						Data : ${postagem.dataPostagem }
 					</p>
@@ -31,7 +31,7 @@
 					<p>
 						<span>Categoria:</span>
 						<c:forEach var="c" items="${postagem.categorias }">
-							<a href="<c:url value="/categoria/${c.permalink }" />" title="${c.descricao }"> 
+							<a href="<c:url value="/categoria/${c.permalink }/page/1" />" title="${c.descricao }"> 
 							| ${c.descricao} </a>
 						</c:forEach>
 					</p>

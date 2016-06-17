@@ -18,7 +18,7 @@
 				<div>
 					<h2> <a href="<c:url value="/${p.permalink }" />" title="${p.titulo }" > ${p.titulo } </a> </h2>
 					<p>
-						Autor : <a href="<c:url value="/autor/${p.autor.nome}" />"> ${p.autor.nome } </a> 
+						Autor : <a href="<c:url value="/autor/${p.autor.id}/page/1" />"> ${p.autor.nome } </a> 
 						| 
 						Data : ${p.dataPostagem }
 						| # ${fn:length(p.comentarios) }
@@ -50,7 +50,7 @@
 						<label style="font-size: 18pt;">${p }</label>
 					</c:when>
 					<c:otherwise>
-						<a href="<c:url value="/page/${p }" />">
+						<a href="<c:url value="${urlPagination }/${p }" />">
 							${p }
 						</a>
 					</c:otherwise>
