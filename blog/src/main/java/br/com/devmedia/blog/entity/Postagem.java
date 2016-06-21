@@ -18,6 +18,8 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "postagens")
 public class Postagem extends AbstractPersistable<Long> {
@@ -39,6 +41,7 @@ public class Postagem extends AbstractPersistable<Long> {
 	@JoinColumn(name = "autor_id")
 	private Autor autor;
 
+	//@JsonIgnore
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "postagens_has_categoria", joinColumns = @JoinColumn(name = "postagem_id") , inverseJoinColumns = @JoinColumn(name = "categoria_id") )
 	private List<Categoria> categorias;
@@ -100,8 +103,9 @@ public class Postagem extends AbstractPersistable<Long> {
 	}
 
 	public List<Comentario> getComentarios() {
-		
-		Collections.sort(comentarios);
+		if(comentarios != null){
+			Collections.sort(comentarios);
+		}
 		
 		return comentarios;
 	}

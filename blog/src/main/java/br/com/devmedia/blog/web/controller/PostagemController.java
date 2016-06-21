@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.devmedia.blog.entity.Postagem;
@@ -32,6 +33,24 @@ public class PostagemController {
 	@InitBinder
 	public void initBinder(WebDataBinder binder){
 		binder.registerCustomEditor(List.class,new CategoriaEditorSupport(List.class, categoriaService));
+	}
+
+	@RequestMapping(value="/ajax/save",method=RequestMethod.POST)
+	public @ResponseBody Postagem saveAjax(Postagem postagem){
+		
+		postagemService.saveOrUpdate(postagem);
+		
+		return postagem;
+	}
+	
+	@RequestMapping(value="/ajax/add",method=RequestMethod.GET)
+	public ModelAndView cadastroAjax(@ModelAttribute("postagem") Postagem postagem){
+
+		ModelAndView view = new ModelAndView("postagem/cadastro-ajax");
+		
+		view.addObject("categorias", categoriaService.findAll());
+		
+		return view;
 	}
 	
 	@RequestMapping(value="/ajax/titulo/{titulo}/page/{page}",method=RequestMethod.GET)
