@@ -12,6 +12,9 @@
 	<c:import url="../menu.jsp"/>
 	<fieldset>
 		<legend>Lista de Postagens</legend>
+		<div>
+			<input id="search" type="search" placeholder="Busca por titulo" value="">
+		</div>
 		<table class="table">
 			<tr>
 				<th>Codigo</th>
