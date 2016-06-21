@@ -15,33 +15,12 @@
 		<div>
 			<input id="search" type="search" placeholder="Busca por titulo" value="">
 		</div>
-		<table class="table">
-			<tr>
-				<th>Codigo</th>
-				<th>Titulo do Post</th>
-				<th>Permalink</th>
-				<th>Data de Postagem</th>
-				<th>Autor</th>
-				<th>Categorias</th>
-				<th>Ação</th>
-			</tr>
-			<tbody id="tbody">
+		
+		<table id="table-ajax" class="table">
+			
 				<jsp:include page="table-rows.jsp"/>
-			</tbody>
 		</table>
 
-		<div align="center">
-			<c:forEach var="p" begin="1" end="${page.totalPages }">
-				<c:choose>
-					<c:when test="${(p-1) eq page.number }">
-						<button id="button_${p }" disabled="disabled" value="${p }">${p }</button>
-					</c:when>
-					<c:otherwise>
-						<button id="button_${p }" value="${p }">${p }</button>
-					</c:otherwise>
-				</c:choose>
-			</c:forEach>
-		</div>
 		
 		<div id="info"></div>
 
