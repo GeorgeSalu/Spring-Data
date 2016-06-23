@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.*;
 
 import org.springframework.data.jpa.domain.AbstractPersistable;
+import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 @Table(name = "usuarios")
@@ -33,6 +34,9 @@ public class Usuario extends AbstractPersistable<Long> {
 
 	@OneToMany(mappedBy = "usuario")
 	private List<Comentario> comentarios;
+
+	@Transient
+	private MultipartFile file;
 
 	@Override
 	public void setId(Long id) {
@@ -93,6 +97,14 @@ public class Usuario extends AbstractPersistable<Long> {
 
 	public void setComentarios(List<Comentario> comentarios) {
 		this.comentarios = comentarios;
+	}
+
+	public MultipartFile getFile() {
+		return file;
+	}
+
+	public void setFile(MultipartFile file) {
+		this.file = file;
 	}
 
 }

@@ -16,22 +16,26 @@
 			<legend> Cadastro de Usuário</legend>
 			<div class="campo">
 				<form:label path="nome">Nome do Usuário</form:label><br>
-				<form:input path="nome" type="text" required="true"/>
+				<form:input path="nome" type="text" />
+				<form:errors path="nome"></form:errors>
 			</div>
 			<br>
 			<div class="campo">
 				<form:label path="email">E-mail</form:label><br>
-				<form:input path="email" type="email" required="true"/>
+				<form:input path="email" type="email" />
+				<form:errors path="email"></form:errors>
 			</div>
 			<br>
 			<div class="campo">
 				<form:label path="senha">Senha</form:label><br>
-				<form:password path="senha" required="true"/>
+				<form:password path="senha" />
+				<form:errors path="senha"></form:errors>
 			</div>
 			<br>
 			<div class="campo">
-				<label for="file">Avatar</label><br>
-				<input type="file" name="file" required="true"/>
+				<form:label path="file">Avatar</form:label><br>
+				<form:input type="file" path="file" />
+				<form:errors path="file"></form:errors>
 			</div>
 			<br>
 			<div class="campo">
