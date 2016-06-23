@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -58,11 +60,26 @@ public class CategoriaController {
 	}
 	
 	@RequestMapping(value="/save",method=RequestMethod.POST)
-	public String save(@ModelAttribute("categoria") Categoria categoria){
+	public ModelAndView save(@ModelAttribute("categoria") @Validated Categoria categoria,BindingResult result){
 		
+		ModelAndView view = new ModelAndView();
+		
+		
+		if(result.hasErrors()){
+			
+			Page<Categoria> page = service.findByPagination(0, 5);
+			
+			view.addObject("page",page);
+			view.addObject("urlPagination", "/categoria/page");
+			view.setViewName("categoria/cadastro");
+			
+			return view;
+		}
 		service.saveOrUpdate(categoria);
 		
-		return "redirect:/categoria/add";
+		view.setViewName("redirect:/categoria/add");
+		
+		return view;
 	}
 	
 	@RequestMapping(value="/add",method=RequestMethod.GET)
