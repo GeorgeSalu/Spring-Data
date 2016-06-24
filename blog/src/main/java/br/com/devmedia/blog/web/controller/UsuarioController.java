@@ -36,7 +36,7 @@ public class UsuarioController {
 	@Autowired
 	private AvatarService avatarService;
 	
-	@InitBinder
+	@InitBinder("usuario")
 	public void initBinder(WebDataBinder binder) {
 		
 		binder.registerCustomEditor(Perfil.class, new PerfilEditorSupport());
@@ -77,7 +77,8 @@ public class UsuarioController {
 	@RequestMapping(value={"/update/senha/{id}","/update/senha"},
 					method = {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView updateSenha(@PathVariable("id") Optional<Long> id,
-									@ModelAttribute("usuario") Usuario usuario){
+									@ModelAttribute("usuario") @Validated Usuario usuario,
+									BindingResult result){
 		
 		ModelAndView view = new ModelAndView();
 		
@@ -86,6 +87,18 @@ public class UsuarioController {
 			view.addObject("usuario", usuario);
 			view.setViewName("usuario/atualizar");
 			return view;
+		}
+		
+		if(result.hasFieldErrors("senha")){
+			
+			usuario = usuarioService.findById(usuario.getId());
+			
+			view.addObject("nome", usuario.getNome());
+			view.addObject("email", usuario.getEmail());
+			
+			view.setViewName("usuario/atualizar");
+			return view;
+			
 		}
 		
 		usuarioService.updateSenha(usuario);
@@ -97,13 +110,20 @@ public class UsuarioController {
 	
 	@RequestMapping(value={"/update/{id}","/update"},
 					method = {RequestMethod.GET,RequestMethod.POST})
-	public ModelAndView update(@PathVariable("id") Optional<Long> id,@ModelAttribute("usuario") Usuario usuario){
+	public ModelAndView update(@PathVariable("id") Optional<Long> id,
+			@ModelAttribute("usuario") @Validated Usuario usuario,
+			BindingResult result){
 		
 		ModelAndView view = new ModelAndView();
 		
 		if(id.isPresent()){
 			usuario = usuarioService.findById(id.get());
 			view.addObject("usuario", usuario);
+			view.setViewName("usuario/atualizar");
+			return view;
+		}
+		
+		if(result.hasErrors()){
 			view.setViewName("usuario/atualizar");
 			return view;
 		}

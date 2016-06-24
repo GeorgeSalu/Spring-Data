@@ -12,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +26,7 @@ import br.com.devmedia.blog.entity.Avatar;
 import br.com.devmedia.blog.entity.Usuario;
 import br.com.devmedia.blog.service.AvatarService;
 import br.com.devmedia.blog.service.UsuarioService;
+import br.com.devmedia.blog.web.validator.AvatarValidator;
 
 @Controller
 @RequestMapping("avatar")
@@ -38,11 +41,21 @@ public class AvatarController {
 	private UsuarioService usuarioService;
 	
 	@RequestMapping(value="/update",method=RequestMethod.POST)
-	public String update(@ModelAttribute("avatar") Avatar avatar,@RequestParam("file") MultipartFile file){
+	public String update(@ModelAttribute("avatar") @Validated Avatar avatar,
+							BindingResult result){
+		
+		AvatarValidator validator = new AvatarValidator();
+		validator.validate(avatar, result);
+		
+		if(result.hasErrors()){
+			
+			return "avatar/atualizar";
+			
+		}
 		
 		Long id = avatar.getId();
 		
-		avatar = avatarService.getAvatarByUpload(file);
+		avatar = avatarService.getAvatarByUpload(avatar.getFile());
 		avatar.setId(id);
 		
 		avatarService.saveOrUpdate(avatar);
