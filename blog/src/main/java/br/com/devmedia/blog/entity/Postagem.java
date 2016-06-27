@@ -47,7 +47,7 @@ public class Postagem extends AbstractPersistable<Long> {
 	private Autor autor;
 
 	//@JsonIgnore
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "postagens_has_categoria", joinColumns = @JoinColumn(name = "postagem_id") , inverseJoinColumns = @JoinColumn(name = "categoria_id") )
 	private List<Categoria> categorias;
 
