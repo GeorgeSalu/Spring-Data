@@ -13,28 +13,32 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		
 		http.authorizeRequests()
-			.antMatchers("/css/**").permitAll()
-			.antMatchers("/js/**").permitAll()
-			.antMatchers("/", "/{permalink}").permitAll()
+		.antMatchers("/css/**").permitAll()
+		.antMatchers("/js/**").permitAll()
+		.antMatchers("/", 
+				"/{permalink}", "/search/**",
+				"/autor/{id}/page/{page}",
+				"/categoria/{link}/page/{page}",
+				"/page/{page}",
+				"/avatar/load/{id}").permitAll()
 
-			.anyRequest().authenticated()
-			
-		.and()
-			.formLogin()
-			.loginPage("/auth/login")
-			.failureUrl("/auth/login?error=true")
-			.usernameParameter("j_username")
-			.passwordParameter("j_password")
-			.permitAll()
-		.and()
-			.logout()
-			.logoutSuccessUrl("/auth/login?logout=true")
-			.invalidateHttpSession(true)
-			.deleteCookies("JSESSIONID")
-		.and()
-			.exceptionHandling().accessDeniedPage("/auth/denied");
+		.anyRequest().authenticated()
+		
+	.and()
+		.formLogin()
+		.loginPage("/auth/login")
+		.failureUrl("/auth/login?error=true")
+		.usernameParameter("j_username")
+		.passwordParameter("j_password")
+		.permitAll()
+	.and()
+		.logout()
+		.logoutSuccessUrl("/auth/login?logout=true")
+		.invalidateHttpSession(true)
+		.deleteCookies("JSESSIONID")
+	.and()
+		.exceptionHandling().accessDeniedPage("/auth/denied");
+
 	}
-	
-	
 
 }
