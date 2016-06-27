@@ -9,7 +9,7 @@
 	<h1>Error Page</h1>
 	<p>${mensagem }</p>
 	<div>
-		<button onclick="javascript:history.back();"></button>
+		<button onclick="javascript:history.back();">Voltar</button>
 	</div>
 	<!-- 
 		falha ao acessar a url : ${url}
