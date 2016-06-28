@@ -55,5 +55,9 @@ public class AutorService {
 		repository.delete(id);
 		
 	}
+
+	public Autor findByUsuario(Long id) {
+		return repository.findByUsuarioId(id);
+	}
 	
 }

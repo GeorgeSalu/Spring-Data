@@ -13,8 +13,12 @@
 		</security:authorize>
 	</nav>
 	<nav>
-		<a href="<c:url value="/autor/add" />">Add Autor</a>
-		<a href="<c:url value="/autor/list" />">List Autor</a>
+		<security:authorize access="hasAuthority('AUTOR')">
+			<a href="<c:url value="/autor/add" />">Dados do Autor</a>
+		</security:authorize>
+		<security:authorize access="hasAuthority('ADIMIN')">
+			<a href="<c:url value="/autor/list" />">Lista de Autores</a>
+		</security:authorize>
 	</nav>
 	<nav>
 		<a href="<c:url value="/postagem/add" />">Add Postagem</a>
