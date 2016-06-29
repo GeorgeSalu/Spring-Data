@@ -177,7 +177,16 @@ public class UsuarioController {
 		
 		usuarioService.save(usuario);
 		
-		return "redirect:/usuario/perfil/" + usuario.getId();
+		return "redirect:/auth/form";
+	}
+	
+	@RequestMapping(value = "/update/perfil", method = RequestMethod.POST)
+	public String updatePerfil(@ModelAttribute("usuario") @Validated Usuario usuario, 
+			                   BindingResult result) {
+		
+		usuarioService.updatePerfil(usuario);
+		
+		return "redirect:/usuario/list";
 	}
 	
 	@RequestMapping(value = "/add", method = RequestMethod.GET)

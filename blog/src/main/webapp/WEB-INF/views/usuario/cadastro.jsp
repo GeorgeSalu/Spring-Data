@@ -8,7 +8,7 @@
 </head>
 <body>
 	<c:import url="../menu.jsp"/>
-	<c:url var="save" value="/usuario/save"/>
+	<c:url var="save" value="/usuario/save?${_csrf.parameterName}=${_csrf.token}"/>
 	<form:form modelAttribute="usuario" action="${save}" method="post" 
 														 enctype="multipart/form-data">
 		<form:hidden path="id"/>												 
