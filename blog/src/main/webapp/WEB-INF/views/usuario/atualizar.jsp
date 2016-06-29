@@ -49,6 +49,29 @@
 				</div>
 			</fieldset>	
 		</form:form>
+		
+		<security:authorize access="hasAuthority('ADIMIN')">
+		<c:url var="save" value="/usuario/update/perfil" />
+		<form:form modelAttribute="usuario" action="${save }" method="post">
+			<form:hidden path="id"/>
+			<fieldset class="grupo">
+			<legend>Editar Perfil</legend>
+			<div class="campo">
+				<form:label path="perfil">Perfil</form:label><br>
+				<form:select path="perfil" required="true">
+					<form:option value="ADMIN" label="ADMIN"/>
+					<form:option value="AUTOR" label="AUTOR"/>
+					<form:option value="LEITOR" label="LEITOR"/>
+				</form:select>
+			</div>
+			<div>
+				<input type="submit" value="Salvar">
+				<input type="reset" value="Limpar">
+			</div>		
+			</fieldset>
+		</form:form>
+		</security:authorize>
+		
 	</fieldset>
 </body>
 </html>

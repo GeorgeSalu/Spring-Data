@@ -38,14 +38,6 @@
 				<form:errors path="file"></form:errors>
 			</div>
 			<br>
-			<div class="campo">
-				<form:label path="perfil">Perfil</form:label><br>
-				<form:select path="perfil" required="true">
-					<form:option value="ADMIN" label="ADMIN"/>
-					<form:option value="AUTOR" label="AUTOR"/>
-					<form:option value="LEITOR" label="LEITOR"/>
-				</form:select>
-			</div>
 			<br>
 			<div>
 				<input type="submit" value="Salvar">

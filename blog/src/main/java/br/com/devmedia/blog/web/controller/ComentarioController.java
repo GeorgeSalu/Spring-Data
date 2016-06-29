@@ -1,6 +1,7 @@
 package br.com.devmedia.blog.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -12,8 +13,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import br.com.devmedia.blog.entity.Comentario;
 import br.com.devmedia.blog.entity.Postagem;
+import br.com.devmedia.blog.entity.UsuarioLogado;
 import br.com.devmedia.blog.service.ComentarioService;
 import br.com.devmedia.blog.service.PostagemService;
+import br.com.devmedia.blog.service.UsuarioService;
 
 @Controller
 @RequestMapping("comentario")
@@ -23,10 +26,13 @@ public class ComentarioController {
 	private ComentarioService comentarioService;
 	@Autowired
 	private PostagemService postagemService;
+	@Autowired
+	private UsuarioService usuarioService;
 	
 	@RequestMapping(value="/save",method=RequestMethod.POST)
 	public ModelAndView save(@ModelAttribute("comentario") @Validated Comentario comentario,BindingResult result,
-						@RequestParam("permalink") String permalink){
+						@RequestParam("permalink") String permalink,
+						@AuthenticationPrincipal UsuarioLogado logado){
 		
 		Postagem postagem = postagemService.findByPermalink(permalink);
 		
@@ -35,6 +41,7 @@ public class ComentarioController {
 			return new ModelAndView("post", "postagem", postagem);	
 		}
 		
+		comentario.setUsuario(usuarioService.findById(logado.getId()));
 		
 		comentario.setPostagem(postagem);
 		
