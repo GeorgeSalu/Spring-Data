@@ -4,7 +4,9 @@ $(document).ready(function () {
 		  
 		  event.preventDefault();
 		  
-		  $.post( '/blog/postagem/ajax/save', $(this).serialize() )
+		  var token = $("input[name='_csrf']").attr('value');
+		  
+		  $.post( '/blog/postagem/ajax/save?_csrf'+token, $(this).serialize() )
 		  	.done(function(result) {
 		  		
 		  		if ( result.status != 'FAIL') {
@@ -55,7 +57,15 @@ $(document).ready(function () {
 
 function search(value) {
 	
-	var url = "/blog/postagem/ajax/titulo/" + value + "/page/1";
+	var authorId = $('#table-ajax').attr('title');
+	var url;
+	
+	if(authorId > 0){
+		url = "/blog/postagem/ajax/autor/"+authorId+"titulo/" + value + "/page/1";
+	}else{
+		url = "/blog/postagem/ajax/titulo/" + value + "/page/1";
+	}
+	
 	
 	$('#table-ajax').load( url, function( response, status, xhr) {
 		if ( status == "error" ) {
@@ -70,9 +80,15 @@ function tbody(page) {
 	var url = "";
 	
 	var titulo = $('#search').val();
+
+	var authorId = $('#table-ajax').attr('title');
 	
-	if (titulo.length > 0) {
+	if(authorId > 0 && titulo.length > 0){
+		url = "/blog/postagem/ajax/autor/"+authorId+"titulo/" + titulo + "/page/"+page;
+	} else if (titulo.length > 0) {
 		url = "/blog/postagem/ajax/titulo/" + titulo + "/page/" + page;
+	} else if ( authorId > 0 ){
+		url = "/blog/postagem/ajax/autor/"+authorId+"/page/"+ page;
 	} else {
 		url = "/blog/postagem/ajax/page/" + page;
 	}

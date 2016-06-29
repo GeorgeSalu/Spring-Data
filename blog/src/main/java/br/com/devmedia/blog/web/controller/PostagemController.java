@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.devmedia.blog.entity.Postagem;
+import br.com.devmedia.blog.entity.UsuarioLogado;
 import br.com.devmedia.blog.service.AutorService;
 import br.com.devmedia.blog.service.CategoriaService;
 import br.com.devmedia.blog.service.PostagemService;
@@ -41,7 +43,8 @@ public class PostagemController {
 	}
 
 	@RequestMapping(value="/ajax/save",method=RequestMethod.POST)
-	public @ResponseBody PostagemAjaxValidator saveAjax(@Validated Postagem postagem,BindingResult result){
+	public @ResponseBody PostagemAjaxValidator saveAjax(@Validated Postagem postagem,BindingResult result,
+			@AuthenticationPrincipal UsuarioLogado logado){
 		
 		PostagemAjaxValidator validator = new PostagemAjaxValidator();
 		
@@ -53,6 +56,8 @@ public class PostagemController {
 			
 			return validator;
 		}
+		
+		postagem.setAutor(autorService.findByUsuario(logado.getId()));
 		
 		postagemService.saveOrUpdate(postagem);
 		
@@ -78,6 +83,20 @@ public class PostagemController {
 		ModelAndView view = new ModelAndView("postagem/table-rows");
 		
 		Page<Postagem> page = postagemService.findByTitulo(pagina-1,5,titulo);
+		
+		view.addObject("page", page);
+		
+		return view;
+	}
+	
+	@RequestMapping(value="/ajax/autor/{id}/titulo/{titulo}/page/{page}",method=RequestMethod.GET)
+	public ModelAndView searchByAjaxByAutor(@PathVariable("titulo")String titulo,
+									@PathVariable("page") Integer pagina,
+									@PathVariable("id") Long id){
+		
+		ModelAndView view = new ModelAndView("postagem/table-rows");
+		
+		Page<Postagem> page = postagemService.findByTituloAndAutor(pagina-1,5,titulo,id);
 		
 		view.addObject("page", page);
 		
@@ -157,15 +176,17 @@ public class PostagemController {
 	
 	@RequestMapping(value="/save",method=RequestMethod.POST)
 	public ModelAndView save(@ModelAttribute("postagem") @Validated Postagem postagem,
-						BindingResult result){
+						BindingResult result,@AuthenticationPrincipal UsuarioLogado logado){
 		
 		if(result.hasErrors()){
 			return new ModelAndView( "postagem/cadastro", "categorias",categoriaService.findAll() );
 		}
 		
+		postagem.setAutor(autorService.findByUsuario(logado.getId()));
+		
 		postagemService.saveOrUpdate(postagem);
 		
-		return new ModelAndView( "redirect:/postagem/list");
+		return new ModelAndView( "redirect:/postagem/list/"+logado.getId());
 	}
 	
 	@RequestMapping(value="/add",method=RequestMethod.GET)

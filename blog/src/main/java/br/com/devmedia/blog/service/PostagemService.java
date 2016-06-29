@@ -129,5 +129,13 @@ public class PostagemService {
 		
 		return repository.findAllByTituloContainingIgnoreCaseOrderByDataPostagemDesc(pageable,titulo);
 	}
+
+
+	public Page<Postagem> findByTituloAndAutor(int page, int size, String titulo, Long id) {
+
+		Pageable pageable = new PageRequest(page, size);
+		
+		return repository.findAllByAutorIdAndTituloOrderByDataPostagemDesc(pageable,id,titulo);
+	}
 	
 }
