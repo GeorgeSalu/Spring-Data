@@ -21,9 +21,14 @@
 		</security:authorize>
 	</nav>
 	<nav>
-		<a href="<c:url value="/postagem/add" />">Add Postagem</a>
-		<a href="<c:url value="/postagem/list" />">List Postagens</a>
-		<a href="<c:url value="/postagem/ajax/add" />">add Postagens Ajax</a>
+		<security:authorize access="hasAuthority('AUTOR')">
+		|	<a href="<c:url value="/postagem/add" />">Nova Postagem</a>
+		|	<a href="<c:url value="/postagem/list/${logado.id }" />">List Postagens</a>	
+		|	<a href="<c:url value="/postagem/ajax/add" />">Nova Postagens Ajax</a>
+		</security:authorize>
+		<security:authorize access="hasAuthority('ADIMIN')">
+		|	<a href="<c:url value="/postagem/list" />">List Postagens</a>
+		</security:authorize>
 	</nav>
 	<nav>
 		<security:authorize access="hasAnyAuthority('ADIMIN','AUTOR')">

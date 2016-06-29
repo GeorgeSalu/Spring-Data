@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.devmedia.blog.entity.Postagem;
+import br.com.devmedia.blog.service.AutorService;
 import br.com.devmedia.blog.service.CategoriaService;
 import br.com.devmedia.blog.service.PostagemService;
 import br.com.devmedia.blog.web.editor.CategoriaEditorSupport;
@@ -31,7 +32,8 @@ public class PostagemController {
 	private PostagemService postagemService;
 	@Autowired
 	private CategoriaService categoriaService;
-	
+	@Autowired
+	private AutorService autorService;
 	
 	@InitBinder
 	public void initBinder(WebDataBinder binder){
@@ -82,6 +84,20 @@ public class PostagemController {
 		return view;
 	}
 	
+	@RequestMapping(value="/ajax/autor/{id}/page/{page}",method=RequestMethod.GET)
+	public ModelAndView pagePostagens(@PathVariable("id") Long id,
+			@PathVariable("page")Integer pagina){
+		
+		ModelAndView view = new ModelAndView("postagem/table-rows");
+		
+		Page<Postagem> page = postagemService.findByPaginationByAutor(pagina-1, 5,id);
+		
+		view.addObject("page", page);
+		//view.addObject("urlPagination", "/postagem/page");
+		
+		return view;
+	}
+	
 	@RequestMapping(value="/ajax/page/{page}",method=RequestMethod.GET)
 	public ModelAndView pagePostagens(@PathVariable("page")Integer pagina){
 		
@@ -122,6 +138,19 @@ public class PostagemController {
 		
 		model.addAttribute("page",page);
 		model.addAttribute("urlPagination", "/postagem/page");
+		
+		return new ModelAndView("postagem/list",model);
+	}
+	
+	@RequestMapping(value="/list/{id}",method=RequestMethod.GET)
+	public ModelAndView listPostagensByAutor(@PathVariable("id") Long id, ModelMap model){
+
+		Long autorId = autorService.findByUsuario(id).getId();
+		
+		//model.addAttribute("postagens",postagemService.findAll());
+		Page<Postagem> page = postagemService.findByPaginationByAutor(0, 5, autorId);
+		model.addAttribute("page",page);
+		model.addAttribute("autorId",autorId);
 		
 		return new ModelAndView("postagem/list",model);
 	}
